@@ -1,4 +1,7 @@
 import "package:flutter/material.dart";
+import "category_screen.dart";
+import "graph_screen.dart";
+import "trash_screen.dart";
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -8,12 +11,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State {
+  int selectedDrawerButtonIndex = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: const Icon(Icons.menu),
+        //automaticallyImplyLeading: true,
         actions: const [
           Icon(Icons.search_sharp),
           SizedBox(
@@ -25,20 +29,166 @@ class _HomeState extends State {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
         ),
       ),
+      drawer: Drawer(
+        width: 240,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  const Text(
+                    "Expense Maneger",
+                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
+                  ),
+                  const Text(
+                    "Saves all your Transactions",
+                    style:
+                        TextStyle(fontSize: 11.5, fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+            ),
+            /*ListTile(
+                shape: Border.all(),
+                selectedColor: Color.fromRGBO(14, 161, 125, 1),
+                //hoverColor: Color.fromRGBO(14, 161, 125, 0.15),
+                leading: Icon(Icons.calendar_month),
+                title: const Text('Transaction'),
+                selectedTileColor: Color.fromRGBO(14, 161, 125, 0.15),
+                autofocus: true,
+                selected: true,
+                onTap: () {},
+              ),*/
+
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            GestureDetector(
+              onTap: () {
+                selectedDrawerButtonIndex = 1;
+                Navigator.of(context).pop();
+
+                setState(() {});
+              },
+              child: getDrawerButtons(
+                icon: Icons.calendar_month,
+                label: "Transactions",
+                buttonIndex: 1,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            GestureDetector(
+              onTap: () {
+                selectedDrawerButtonIndex = 2;
+
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const GraphPage(),
+                  ),
+                );
+                setState(() {});
+              },
+              child: getDrawerButtons(
+                icon: Icons.pie_chart_rounded,
+                label: "Graphs",
+                buttonIndex: 2,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            GestureDetector(
+              onTap: () {
+                selectedDrawerButtonIndex = 3;
+                setState(() {});
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CategoryPage(),
+                  ),
+                );
+              },
+              child: getDrawerButtons(
+                icon: Icons.label_rounded,
+                label: "Category",
+                buttonIndex: 3,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            GestureDetector(
+              onTap: () {
+                selectedDrawerButtonIndex = 4;
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return const TrashPage();
+                    },
+                  ),
+                );
+                setState(() {});
+              },
+              child: getDrawerButtons(
+                icon: Icons.delete_rounded,
+                label: "Trash",
+                buttonIndex: 4,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            GestureDetector(
+              onTap: () {
+                selectedDrawerButtonIndex = 5;
+                Navigator.of(context).pop();
+
+                setState(() {});
+              },
+              child: getDrawerButtons(
+                icon: Icons.person_rounded,
+                label: "About us",
+                buttonIndex: 5,
+              ),
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           showMyBottomShett();
         },
+        shape: const StadiumBorder(),
         label: const Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(0.0),
           child: Row(
             children: [
               Icon(
                 Icons.add_circle_rounded,
                 color: Color.fromRGBO(14, 161, 125, 1),
-                size: 35,
+                size: 43,
               ),
-              Text("Add Transaction ")
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                "Add Transaction",
+                style: TextStyle(fontSize: 14),
+              )
             ],
           ),
         ),
@@ -82,7 +232,7 @@ class _HomeState extends State {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
@@ -90,16 +240,17 @@ class _HomeState extends State {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Medicine",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w500),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
                             SizedBox(
-                              child: Text(
+                              width: MediaQuery.of(context).size.width * 0.66,
+                              child: const Text(
                                 "Lorem Ipsum is simply dummy text of the ",
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w400),
@@ -107,10 +258,10 @@ class _HomeState extends State {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 3,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           child: Row(
                             children: [
                               Icon(
@@ -127,10 +278,10 @@ class _HomeState extends State {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 3,
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
@@ -154,6 +305,37 @@ class _HomeState extends State {
     );
   }
 
+  Widget getLabelForTextField({required String label}) {
+    return Text(
+      label,
+      style: const TextStyle(
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+        color: Color.fromRGBO(33, 33, 33, 1),
+      ),
+    );
+  }
+
+  InputDecoration getInputDecorationForTextField() {
+    return const InputDecoration(
+      contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: Color.fromRGBO(33, 33, 33, 1),
+        ),
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.transparent),
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
+        ),
+      ),
+    );
+  }
+
   void showMyBottomShett() {
     showModalBottomSheet(
       isScrollControlled: true,
@@ -162,7 +344,7 @@ class _HomeState extends State {
         return Padding(
           padding: MediaQuery.of(context).viewInsets,
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -170,136 +352,82 @@ class _HomeState extends State {
                 Form(
                   // key: _taskKey,
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          " Title",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: Color.fromRGBO(111, 81, 255, 1),
-                          ),
-                        ),
-                        TextFormField(
-                          validator: (value) {
-                            return null;
-                          },
-                          //controller: titleController,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 15.0, horizontal: 10.0),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color.fromRGBO(111, 81, 255, 1),
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(" Description",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color: Color.fromRGBO(111, 81, 255, 1),
-                            )),
-                        TextFormField(
-                          maxLines: 2,
-                          //controller: descriptionController,
-                          decoration: const InputDecoration(
-                            /* contentPadding: EdgeInsets.symmetric(
-                                vertical: 35.0, horizontal: 10.0),*/
-                            labelStyle: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              color: Color.fromRGBO(111, 81, 255, 1),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color.fromRGBO(111, 81, 255, 1),
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          " Date",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: Color.fromRGBO(111, 81, 255, 1),
-                          ),
-                        ),
-                        TextFormField(
-                          validator: (value) {
-                            return null;
-                          },
-                          readOnly: true,
-                          //onTap: showCalender,
-                          //onTap: showCalender,
-                          //controller: dateController,
-                          decoration: InputDecoration(
-                            suffixIcon: GestureDetector(
-                                child: const Icon(Icons.calendar_month)),
-                            contentPadding: const EdgeInsets.symmetric(
-                              vertical: 15.0,
-                              horizontal: 10.0,
-                            ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color.fromRGBO(111, 81, 255, 1),
-                              ),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                            border: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.transparent),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                      ]),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      getLabelForTextField(label: "Date"),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          return null;
+                        },
+                        readOnly: true,
+                        //onTap: showCalender,
+                        //onTap: showCalender,
+                        //controller: dateController,
+                        decoration: getInputDecorationForTextField(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      getLabelForTextField(label: "Amount"),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          return null;
+                        },
+                        //controller: titleController,
+                        decoration: getInputDecorationForTextField(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      getLabelForTextField(label: "Category"),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      TextFormField(
+                        decoration: getInputDecorationForTextField(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      getLabelForTextField(label: "Description"),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      TextFormField(
+                        //maxLines: 1,
+                        //controller: descriptionController,
+                        decoration: getInputDecorationForTextField(),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    backgroundColor: const Color.fromRGBO(111, 81, 255, 1),
+                    backgroundColor: const Color.fromRGBO(14, 161, 125, 1),
                   ),
                   onPressed: () {},
-                  child: const Text(
-                    "Submit",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 35, vertical: 10),
+                    child: Text(
+                      "Add",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
                         fontSize: 20,
-                        color: Colors.white),
+                        color: Color.fromRGBO(255, 255, 255, 1),
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -310,6 +438,47 @@ class _HomeState extends State {
           ),
         );
       },
+    );
+  }
+
+  Widget getDrawerButtons({
+    required IconData icon,
+    required String label,
+    required int buttonIndex,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(13),
+      decoration: BoxDecoration(
+        color: (buttonIndex == selectedDrawerButtonIndex)
+            ? const Color.fromRGBO(14, 161, 125, 0.15)
+            : null,
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
+      height: 45,
+      width: 186,
+      alignment: Alignment.center,
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: const Color.fromRGBO(5, 158, 117, 1),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.02,
+          ),
+          Text(
+            label,
+            style: TextStyle(
+              color: (buttonIndex == selectedDrawerButtonIndex)
+                  ? const Color.fromRGBO(5, 158, 117, 1)
+                  : null,
+            ),
+          )
+        ],
+      ),
     );
   }
 }
