@@ -236,6 +236,7 @@ class _HomeState extends State {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,7 +250,7 @@ class _HomeState extends State {
                               height: 2,
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.66,
+                              width: MediaQuery.of(context).size.width * 0.63,
                               child: const Text(
                                 "Lorem Ipsum is simply dummy text of the ",
                                 style: TextStyle(
@@ -285,7 +286,7 @@ class _HomeState extends State {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          "                                                            3 June | 11:50 AM",
+                          "                                                    3 June | 11:50 AM",
                           style: TextStyle(
                               fontSize: 13, fontWeight: FontWeight.w400),
                         ),
